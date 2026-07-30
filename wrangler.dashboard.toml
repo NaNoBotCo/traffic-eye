@@ -1,0 +1,24 @@
+# The dashboard. Reads the dataset back and draws it.
+#
+#   npx wrangler deploy -c wrangler.dashboard.toml
+#   npx wrangler secret put DASH_KEY  -c wrangler.dashboard.toml   # your own passphrase
+#   npx wrangler secret put AE_TOKEN  -c wrangler.dashboard.toml   # Cloudflare API token
+#
+# AE_TOKEN must be a Cloudflare API token with **Account · Account Analytics ·
+# Read**. Wrangler's own OAuth login cannot be reused for this: the Analytics
+# Engine SQL API takes a bearer token, and the login does not expose one.
+# Make it at https://dash.cloudflare.com/profile/api-tokens (Create Custom Token).
+#
+# The token is a Worker secret, never in client-side code — the dashboard is
+# rendered on the server for exactly that reason.
+
+name = "traffic-eye-dashboard"
+main = "src/dashboard.js"
+compatibility_date = "2026-07-01"
+account_id = "fe332688b1b25b543f8429d7f08292a3"
+
+[vars]
+ACCOUNT_ID = "fe332688b1b25b543f8429d7f08292a3"
+
+[observability]
+enabled = true

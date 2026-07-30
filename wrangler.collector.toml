@@ -1,0 +1,51 @@
+# The collector. Deploy once, then attach it to each site's routes.
+#
+#   npx wrangler deploy -c wrangler.collector.toml
+#
+# Routes are commented out on purpose. Adding a route puts this Worker in front
+# of every request to a LIVE site, so each one should be turned on deliberately
+# and watched afterwards, not switched on in a batch.
+#
+# A route only fires if that hostname is PROXIED through Cloudflare — orange
+# cloud, not grey. Grey-cloud (DNS-only) records never reach a Worker, and the
+# route will sit there doing nothing with no error to tell you so. Check with:
+#   curl -sI https://example.com/ | grep -i cf-ray      # a cf-ray means proxied
+
+name = "traffic-eye-collector"
+main = "src/collector.js"
+compatibility_date = "2026-07-01"
+account_id = "fe332688b1b25b543f8429d7f08292a3"
+
+# Where the rows go. The dataset is created on first write — nothing to set up.
+[[analytics_engine_datasets]]
+binding = "TRAFFIC"
+dataset = "traffic_eye"
+
+# Uncomment one zone at a time, redeploy, then watch `npx wrangler tail`.
+#
+# [[routes]]
+# pattern = "hakfarang.net/*"
+# zone_name = "hakfarang.net"
+#
+# [[routes]]
+# pattern = "www.hakfarang.net/*"
+# zone_name = "hakfarang.net"
+#
+# [[routes]]
+# pattern = "defiant.to/*"
+# zone_name = "defiant.to"          # flip the DNS record to proxied first
+#
+# These three still resolve to GitHub Pages via Namecheap DNS. They need their
+# nameservers moved to Cloudflare before any route here can fire — see README.
+#
+# [[routes]]
+# pattern = "wichaa.net/*"
+# zone_name = "wichaa.net"
+#
+# [[routes]]
+# pattern = "motdang.net/*"
+# zone_name = "motdang.net"
+#
+# [[routes]]
+# pattern = "poplucky.net/*"
+# zone_name = "poplucky.net"
