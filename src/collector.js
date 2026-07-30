@@ -18,6 +18,24 @@ export default {
   async fetch(request, env, ctx) {
     const started = Date.now();
 
+    // On a workers.dev hostname there is no origin behind us, so fetch(request)
+    // would call this Worker back into itself — a subrequest loop that spends
+    // quota and ends in a 500. Answer directly instead. This doubles as the
+    // only safe way to check the thing is alive without pointing it at a live
+    // site: it reports what it would have recorded, and records it.
+    if (new URL(request.url).hostname.endsWith('.workers.dev')) {
+      const ua = request.headers.get('user-agent') || '';
+      const { category, agent } = classify(ua);
+      const echo = new Response(
+        `traffic-eye collector is running.\n` +
+        `seen as: ${category} / ${agent}\n` +
+        `recorded: ${env.TRAFFIC ? 'yes' : 'no — TRAFFIC binding missing'}\n`,
+        { headers: { 'content-type': 'text/plain; charset=utf-8' } },
+      );
+      try { ctx.waitUntil(record(request, echo.clone(), env, Date.now() - started)); } catch {}
+      return echo;
+    }
+
     // The one thing that matters. Nothing above this line can fail.
     const response = await fetch(request);
 
