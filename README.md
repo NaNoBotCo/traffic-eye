@@ -33,8 +33,14 @@ It is off by default and the collector will not deploy without it.
 
 https://dash.cloudflare.com/fe332688b1b25b543f8429d7f08292a3/workers/analytics-engine
 
-Click enable. Free tier: 10M writes/month, 90-day retention — far more than
-these sites will use.
+Free plan: **100,000 writes/day and 10,000 read queries/day**, 90-day retention.
+(The 10M/month and 1M/month figures are the *paid* Workers plan.) 100k/day is
+still far more than these sites will use — motdang.net's whole page count is
+ten thousand.
+
+Note: you do **not** need to click "Create Dataset". Datasets are created on
+first write; `wrangler.collector.toml` already names one (`traffic_eye`). The
+only thing that matters on this page is that the product itself is enabled.
 
 ### 2. Give the dashboard a key and a token
 
