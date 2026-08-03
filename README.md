@@ -3,7 +3,7 @@
 Who is asking for your pages — people, AI crawlers, search engines, scrapers —
 across all your sites, in one place.
 
-**Dashboard:** https://traffic-eye-dashboard.annika-fe3.workers.dev/?k=YOUR_KEY
+**Dashboard:** `https://traffic-eye-dashboard.<your-subdomain>.workers.dev/?k=YOUR_KEY`
 (deployed; refuses to serve until you set a key — step 2 below)
 
 ---
