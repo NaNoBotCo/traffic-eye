@@ -42,9 +42,13 @@ dataset = "traffic_eye"
 # pattern = "wichaa.net/*"
 # zone_name = "wichaa.net"
 #
-# [[routes]]
-# pattern = "motdang.net/*"
-# zone_name = "motdang.net"
+# motdang.net is NOT available to this collector and never will be: a hostname
+# belongs to exactly one Worker, and motdang.net/* belongs to mot-dang-site.
+# That site writes its own rows into this same `traffic_eye` dataset instead —
+# see mot-dang/publish/worker.js and mot-dang/publish/classify.js, which is a
+# copy of src/classify.js. If the blob order in src/collector.js changes, that
+# copy has to change with it, or one dataset ends up holding two schemas.
+# (mot-dang/tests/test_edge_count.mjs compares the two and fails on drift.)
 #
 # [[routes]]
 # pattern = "poplucky.net/*"

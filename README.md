@@ -52,12 +52,19 @@ npx wrangler secret put DASH_KEY -c wrangler.dashboard.toml
 Type any passphrase you like. That becomes `?k=…` in the dashboard address, and
 it is remembered in a cookie afterwards so you only type it once.
 
-Then a read token. Wrangler's own login **cannot** be reused — the Analytics
-Engine SQL API takes a bearer token and the OAuth login does not expose one.
+Then a read token — **already minted, nothing to do.** The fleet token in
+`~/.config/nanobotco/keys.json` (`cloudflare.api_token`, "nanobotco-fleet")
+carries Account Analytics Read and was verified against the SQL API on
+2026-09-08. Read it out of the key store rather than making another one:
 
-1. Go to https://dash.cloudflare.com/profile/api-tokens
-2. **Create Token → Create Custom Token**
-3. Permission: **Account · Account Analytics · Read**
+```bash
+python3 -c "import json,pathlib;print(json.loads((pathlib.Path.home()/'.config/nanobotco/keys.json').read_text())['cloudflare']['api_token'])" \
+  | npx wrangler secret put AE_TOKEN -c wrangler.dashboard.toml
+```
+
+(Wrangler's own OAuth login still cannot be reused for this — the SQL API takes
+a bearer token and the OAuth flow does not expose one. That part of the older
+instruction was right; "so you must create a token" was not.)
 4. Account resources: your account
 5. Create, copy the token, then:
 
