@@ -181,3 +181,13 @@ get right: `Google-Extended` (AI training) must not read as `Googlebot`
 (search); `Applebot-Extended` must not read as `Applebot`; and `Line/13.19.0` is
 a **person** on a phone who tapped a shared link, not LINE's preview crawler —
 which matters more here than anywhere, because these sites are shared LINE-first.
+
+
+## Licence
+
+Records, prose and pages: CC BY-SA 4.0. Code: AGPL-3.0-or-later. Anything
+carried in from elsewhere keeps its own terms — see [LICENSE](LICENSE).
+
+**Commercial licence.** If share-alike doesn't fit your use — a corpus, a
+product, a model — a commercial licence is available.
+[Open an issue](https://github.com/NaNoBotCo/traffic-eye/issues) and say what you need.
