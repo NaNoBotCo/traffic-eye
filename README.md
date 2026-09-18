@@ -186,7 +186,7 @@ which matters more here than anywhere, because these sites are shared LINE-first
 ## Licence
 
 Records, prose and pages: CC BY-SA 4.0. Code: AGPL-3.0-or-later. Anything
-carried in from elsewhere keeps its own terms — see [LICENSE](LICENSE).
+carried in from elsewhere keeps its own terms — see [LICENSE](LICENSE) and [NOTICE.txt](NOTICE.txt).
 
 **Commercial licence.** If share-alike doesn't fit your use — a corpus, a
 product, a model — a commercial licence is available.
