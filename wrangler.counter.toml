@@ -1,0 +1,20 @@
+# The hit counter: a picture a static site puts in its footer.
+#
+#   npx wrangler deploy -c wrangler.counter.toml
+#
+# Lives on workers.dev, so it fronts nothing and cannot break a site.
+# A new site needs its name added to SITES in src/counter.js.
+
+name = "bbq-counter"
+main = "src/counter.js"
+compatibility_date = "2026-07-01"
+account_id = "fe332688b1b25b543f8429d7f08292a3"
+workers_dev = true
+
+[[durable_objects.bindings]]
+name = "COUNTER"
+class_name = "Counter"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["Counter"]
